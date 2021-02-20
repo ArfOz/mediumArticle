@@ -1,49 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-import React from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react'
+import { mystyle } from './style';
 import Box from "./Box"
 
-class App extends React.Component {
+const App = () => {
+    const [counter, setCounter] = useState (0);
+  
+    const [isBoxVisible, setBoxVisible] = useState(false);
 
-  constructor(props){
-    console.log("constructor");
-    super(props);
-    this.state= {counter: 0, isBoxVisible: false};
-  }
-  componentDidMount(){
-    console.log("component did Mount")
-  }
-  componentDidUpdate(){
-    console.log("component did update")
-  }
-  componentWillUnmount(){
-    console.log("component will unmounttttttttttttttttttttttttttttttttttttttttttttttttttt")
-  }
-  shouldComponentUpdate(){
-    console.log("should component update")
-    return true
-  }
-  getSnapshotBeforeUpdate(){
-    console.log("get snapshot Before Update");
-    return null;
-  }
-  static getDerivedStateFromProps(){
-    console.log("getDerivedStateFromProps");
-    return null;
+    useEffect(() =>{
+        console.log("component did update" ,"and", "component did Mount");
+    }, [counter]);
 
-  }
 
-  render(){
-    console.log("render")
+
     return (
-      <div>
-        {this.state.isBoxVisible && <Box />}
-        <button onClick={() => this.setState({isBoxVisible: !this.state.isBoxVisible})}>Toggle</button>
-        <div>Number is: {this.state.counter}</div>
-        <button onClick={() => this.setState({counter: this.state.counter + 1})}>Increment</button>
-      </div>
-    );
-  }
+        <div style={mystyle}>
+            {isBoxVisible && <Box />}
+            <button onClick={() => setBoxVisible(!isBoxVisible)}>Toggle</button>
+        <div>Number is: {counter}</div>
+        <button onClick={() => setCounter(counter+1)}>Increment</button>
+        
+            
+        </div>
+    )
 }
 
 export default App
+
+
+    // const memoHooks = () => {
+    //     console.log(counter, "memo called");
+    //   };
+{/* <button onClick={() => callbackFunction()}>Increment for call Back Counter</button> */}
+    // useMemo(memoHooks, [counter]);
+
+    // const [callBackCounter, setCallBackCounter] = useState (0);
+
+    // const callbackFunction = useCallback(() => {
+    //     console.log(callBackCounter, "callback called");
+    //     setCallBackCounter(callBackCounter +1);
+    //     return callBackCounter;
+    //   }, [callBackCounter]);
+    
+
